@@ -1,0 +1,21 @@
+INFO[main:main]: testing info message
+DEBUG[main:main]: testing debug message
+WARNING[main:main]: testing warn message
+ERROR[main:main]: testing error message
+ERROR[main:main]: testing exception message
+NoneType: None
+CRITICAL[main:main]: testing critical message
+INFO[main:main]: testing info message
+DEBUG[main:main]: testing debug message
+WARNING[main:main]: testing warn message
+ERROR[main:main]: testing error message
+ERROR[main:main]: testing exception message
+NoneType: None
+CRITICAL[main:main]: testing critical message
+INFO[main:main]: testing info message
+DEBUG[main:main]: testing debug message
+WARNING[main:main]: testing warn message
+ERROR[main:main]: testing error message
+ERROR[main:main]: testing exception message
+NoneType: None
+CRITICAL[main:main]: testing critical message

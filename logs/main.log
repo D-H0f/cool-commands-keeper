@@ -19,3 +19,29 @@ ERROR[main:main]: testing error message
 ERROR[main:main]: testing exception message
 NoneType: None
 CRITICAL[main:main]: testing critical message
+INFO[main:main]: <__main__.CommandListing object at 0x778591b40050>
+INFO[main:main]: <__main__.CommandListing object at 0x7d772cc44050>
+INFO[main:main]: 1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464
+INFO[main:main]: <__main__.CommandListing object at 0x76e2c8044050>
+INFO[main:main]: 1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464
+INFO[main:main]: {'1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464': {'command': 'ls -la', 'description': 'lists all files and directories in the currentdirectory, in long format, including hidden', 'tags': ['directory', 'list', 'bash']}}
+INFO[main:main]: <__main__.CommandListing object at 0x77510e644050>
+INFO[main:main]: 1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464
+INFO[main:main]: <bound method CommandListing.to_dict of <__main__.CommandListing object at 0x77510e644050>>
+INFO[main:create_json_file]: created new file 'test_file.json
+INFO[main:create_json_file]: {
+    "1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464": {
+        "command": "ls -la",
+        "description": "lists all files and directories in the currentdirectory, in long format, including hidden",
+        "tags": [
+            "directory",
+            "list",
+            "bash"
+        ]
+    }
+}
+INFO[main:main]: <__main__.CommandListing object at 0x74b337044050>
+INFO[main:main]: 1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464
+INFO[main:main]: <bound method CommandListing.to_dict of <__main__.CommandListing object at 0x74b337044050>>
+ERROR[main:create_json_file]: file 'test_file.json' already exists
+NoneType: None

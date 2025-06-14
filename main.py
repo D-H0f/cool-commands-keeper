@@ -1,10 +1,9 @@
-#!/usr/local/bin/python3.13
+#!/home/bin/env python
 import logging, logging.config
-from os.path import exists
 from pathlib import Path
 import json
 import hashlib
-import argparse
+import typer
 
 # A class to represent the structure of a single command and its metadata
 """
@@ -80,8 +79,25 @@ def create_json_file(filename: str, listing: CommandListing) -> None:
         json.dump(listing.to_dict(), f, indent=4)
 
     logger.info(f"created new file '{filename}.json")
-    with open(f"{filename}.json") as f:
+    with open(f"{filename}.json", "r") as f:
         logger.info(f.read())
+
+def add_obj_to_file(filename: str, listing: CommandListing) -> None:
+    if not Path(f"{Path(__file__).parent.resolve()}/{filename}.json").exists():
+        logger.exception(f"file '{filename}.json' does not exist")
+        raise Exception("this file does not exist")
+
+    with open(f"{filename}.json", "r") as f:
+        data: dict = json.load(f)
+
+    if listing.hash_id in data.keys():
+        logging.exception(f"command already exists in list")
+        raise Exception("")
+
+    data.update(listing.to_dict())
+    with open(f"{filename}.json", "w") as f:
+        json.dump(data, f, indent=4)
+    
 
 
 def main() -> None:

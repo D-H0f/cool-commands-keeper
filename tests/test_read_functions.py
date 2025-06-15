@@ -13,3 +13,10 @@ dummy_data = main.CommandListing(
 def test_read_file():
     json_data = json.dumps(dummy_data.to_dict())
     simulated_file = io.StringIO(json_data)
+
+    assert isinstance(simulated_file, io.TextIOBase)
+
+    file_data = json.load(simulated_file)
+
+    assert isinstance(file_data, dict)
+    assert dummy_data.hash_id in file_data

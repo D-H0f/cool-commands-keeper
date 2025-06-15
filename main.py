@@ -96,7 +96,7 @@ def create_json_file(filename: str, listing: CommandListing) -> None:
     with open(f"{filename}.json", "r") as f:
         logger.info(f.read())
 
-def add_obj_to_file(filename: str, listing: CommandListing) -> None:
+def add_obj_to_file(file, listing: CommandListing) -> None:
     with open(f"{filename}.json", "r") as f:
         data: dict = json.load(f)
 
@@ -107,14 +107,12 @@ def add_obj_to_file(filename: str, listing: CommandListing) -> None:
         json.dump(data, f, indent=4)
     
 # READ
-def read_file(filename: str) -> dict:
-    with open(f"{filename}.json", "r") as f:
-        data = json.load(f)
+def read_file(file) -> dict:
+    data = json.load(file)
     return data
     
-def read_listing_from_hash(filename: str, hash_id: str) -> dict:
-    with open(f"{filename}.json", "r") as f:
-        data = json.load(f)
+def read_listing_from_hash(file, hash_id: str) -> dict:
+    data = json.load(file)
 
     if not hash_id in data.keys():
         raise KeyError("key not found")

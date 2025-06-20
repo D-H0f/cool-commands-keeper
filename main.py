@@ -2,61 +2,19 @@
 import logging, logging.config
 from pathlib import Path
 import json
-import hashlib
 import typer
 
+from models import CommandListing
+
 logger = logging.getLogger(__name__)
-# A class to represent the structure of a single command and its metadata
 """
 object structure:
-<hashvalue identifier dict key>:
-<value of type dict ->
-    "command": "command str value",
-    "description": "description str value",
-    "tags": <list of str object>
->
+{ <hash_id str> : {
+    "command": <command str>,
+    "description": <description str>,
+    "tags": [<tag str>, <tag str>]
+}}
 """
-class CommandListing:
-    def __init__(self,
-                 command: str,
-                 description: str,
-                 tags: list) -> None:
-
-        if not isinstance(command, str) or not command.strip():
-            raise ValueError("Command must be non-empty string")
-        if not isinstance(description, str) or not description.strip():
-            raise ValueError("Description must be non-empty string")
-        if not isinstance(tags, list) or any(not isinstance(v, str) for v in tags):
-            raise ValueError("tags must be a list containing only str values")
-        self.command = command
-        self._command_str = command.strip()
-        self.description = description
-        self.tags = tags
-        self.hash_id = self._generate_hash(self._command_str)
-
-    def _generate_hash(self, text: str) -> str:
-        """
-        Generates a SHA256 hash from the command string with whitespace removed.
-        returned as a hexadecimal string.
-        """
-        return hashlib.sha256(text.encode('utf-8')).hexdigest()
-
-    def to_dict(self) -> dict:
-        return {
-            self.hash_id: {
-                "command": self.command,
-                "description": self.description,
-                "tags": self.tags
-            }
-        }
-    
-    def __eq__(self, other) -> bool:
-        if not isinstance(other, CommandListing): return NotImplemented
-        return self.hash_id == other.hash_id
-
-    def __hash__(self):
-        return hash(self._command_str)
-
 def config_logging() -> logging.Logger:
     cur_dir = Path(__file__).parent.resolve()
     logs_dir = f"{cur_dir}/logs"
@@ -71,10 +29,7 @@ def config_logging() -> logging.Logger:
     return logging.getLogger(__file__)
 
 
-def validate_file_structure(data: dict, listing: CommandListing):
-    if listing.hash_id in data.keys():
-        logger.exception(f"command {listing.hash_id} already exists")
-        raise Exception(f"command {listing.hash_id} already exists in file")
+def validate_file_structure(data: dict):
     for v in iter(data.values()):
         if not isinstance(v, dict):
             logger.exception("invalid data schema in file")
@@ -82,41 +37,63 @@ def validate_file_structure(data: dict, listing: CommandListing):
 
 
 def file_exists(filename: str) -> bool:
-    if Path(f"{Path(__file__).parent.resolve()}/{filename}.json").exists():
+    if Path(f"{Path(__file__).parent.resolve()}/{filename}").exists():
         return True
     else: return False
 
 # CRUD operations
 # CREATE
 def create_json_file(filename: str, listing: CommandListing) -> None:
-    with open(f"{filename}.json", "w") as f:
+    with open(f"{filename}", "w") as f:
         json.dump(listing.to_dict(), f, indent=4)
 
     logger.info(f"created new file '{filename}.json")
-    with open(f"{filename}.json", "r") as f:
+    with open(f"{filename}", "r") as f:
         logger.info(f.read())
 
-def add_obj_to_file(file, listing: CommandListing) -> None:
-    with open(f"{filename}.json", "r") as f:
+def add_obj_to_file(filename: str, listing: CommandListing) -> None:
+    with open(f"{filename}", "r") as f:
         data: dict = json.load(f)
 
-    validate_file_structure(data, listing)
+    validate_file_structure(data)
 
     data.update(listing.to_dict())
-    with open(f"{filename}.json", "w") as f:
+    with open(f"{filename}", "w") as f:
         json.dump(data, f, indent=4)
     
+
 # READ
-def read_file(file) -> dict:
-    data = json.load(file)
+def read_file(filename: str) -> dict:
+    with open(f"{filename}", "r") as f:
+        data = json.load(f)
     return data
     
-def read_listing_from_hash(file, hash_id: str) -> dict:
-    data = json.load(file)
+def read_listing(filename: str, hash_id: str) -> dict:
+    with open(filename, 'r') as f:
+        data = json.load(f)
 
     if not hash_id in data.keys():
         raise KeyError("key not found")
     return {hash_id: data[hash_id]}
+
+
+# UPDATE
+"""
+cannot update the command of a listing as the id of a listing is tied to the command.
+altering the command string would just create a new listing.
+"""
+def update_listing_description(filename: str, id: str, new_description: str) -> None:
+    pass
+
+def add_tag(filename: str, id: str, tag: str) -> None:
+    pass
+
+def remove_tag(filename: str, id: str, tag: str) -> None:
+    pass
+
+# DELETE
+def delete_listing(filename: str, id: str) -> None:
+    pass
 
 
 def main() -> None:

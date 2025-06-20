@@ -12,7 +12,9 @@ object structure:
 { <hash_id str> : {
     "command": <command str>,
     "description": <description str>,
-    "tags": [<tag str>, <tag str>]
+    "tags": [<tag str>, <tag str>],
+    "creation_date": <timestamp>,
+    "last_updated": <timestamp
 }}
 """
 def config_logging() -> logging.Logger:
@@ -65,16 +67,25 @@ def add_obj_to_file(filename: str, listing: CommandListing) -> None:
 # READ
 def read_file(filename: str) -> dict:
     with open(f"{filename}", "r") as f:
-        data = json.load(f)
+        data: dict = json.load(f)
     return data
     
-def read_listing(filename: str, hash_id: str) -> dict:
+def get_listing(filename: str, hash_id: str) -> CommandListing:
     with open(filename, 'r') as f:
-        data = json.load(f)
+        data: dict = json.load(f)
 
     if not hash_id in data.keys():
         raise KeyError("key not found")
-    return {hash_id: data[hash_id]}
+    
+    listing_data: dict = data[hash_id]
+    listing = CommandListing(
+        listing_data["command"],
+        listing_data["description"],
+        listing_data["tags"],
+        listing_data["creation_date"],
+        listing_data["last_updated"]
+    )
+    return listing
 
 
 # UPDATE

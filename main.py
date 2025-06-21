@@ -1,7 +1,7 @@
 #!/home/bin/env python
 import logging, logging.config
 from pathlib import Path
-import json
+from json import dump, load
 import typer
 
 from models import CommandListing
@@ -25,7 +25,7 @@ def config_logging() -> logging.Logger:
     config_file = f"{cur_dir}/configs/logging_config.json"
 
     with open(config_file) as filein:
-        config_settings = json.load(filein)
+        config_settings = load(filein)
     logging.config.dictConfig(config_settings)
 
     return logging.getLogger(__file__)
@@ -47,32 +47,28 @@ def file_exists(filename: str) -> bool:
 # CREATE
 def create_json_file(filename: str, listing: CommandListing) -> None:
     with open(f"{filename}", "w") as f:
-        json.dump(listing.to_dict(), f, indent=4)
-
-    logger.info(f"created new file '{filename}.json")
-    with open(f"{filename}", "r") as f:
-        logger.info(f.read())
+        dump(listing.to_dict(), f, indent=4)
 
 def add_obj_to_file(filename: str, listing: CommandListing) -> None:
     with open(f"{filename}", "r") as f:
-        data: dict = json.load(f)
+        data: dict = load(f)
 
     validate_file_structure(data)
 
     data.update(listing.to_dict())
     with open(f"{filename}", "w") as f:
-        json.dump(data, f, indent=4)
+        dump(data, f, indent=4)
     
 
 # READ
 def read_file(filename: str) -> dict:
     with open(f"{filename}", "r") as f:
-        data: dict = json.load(f)
+        data: dict = load(f)
     return data
     
 def get_listing_by_hash(filename: str, hash_id: str) -> CommandListing:
     with open(filename, 'r') as f:
-        data: dict = json.load(f)
+        data: dict = load(f)
 
     if not hash_id in data.keys():
         raise KeyError("key not found")
@@ -88,7 +84,16 @@ cannot update the command of a listing as the id of a listing is tied to the com
 altering the command string would just create a new listing.
 """
 def update_listing_description(filename: str, id: str, new_description: str) -> None:
-    pass
+    data: dict = read_file(filename)
+    listing = CommandListing.from_dict(data[id])
+
+    listing.description = new_description
+    listing.new_last_updated()
+
+    data[id] = listing.to_dict()
+    with open(filename, 'w') as f:
+        dump(data, f, indent=4)
+
 
 def add_tag(filename: str, id: str, tag: str) -> None:
     pass
@@ -102,23 +107,16 @@ def delete_listing(filename: str, id: str) -> None:
 
 
 def main() -> None:
-    # logger.info("testing info message")
-    # logger.debug("testing debug message")
-    # logger.warning("testing warn message")
-    # logger.error("testing error message")
-    # logger.exception("testing exception message")
-    # logger.critical("testing critical message")
     test_command = CommandListing(
         "ls -la",
         "lists all files and directories in the currentdirectory, in long format, including hidden",
         ["directory", "list", "bash"]
     )
 
-    logger.info(test_command)
-    logger.info(test_command.hash_id)
-    logger.info(test_command.to_dict)
-    logger.info(test_command.creation_date)
-    create_json_file("test_listing_file.json", test_command)
+    new_desc = '''\
+    new description to test crud functions\
+    '''
+    update_listing_description("test_listing_file.json", test_command.hash_id, new_desc)
 
 
 if __name__ == "__main__":

@@ -1,7 +1,8 @@
 import hashlib
 import datetime
+import logging
 
-
+logger = logging.getLogger(__name__)
 class CommandListing:
     def __init__(self,
                  command: str,
@@ -45,13 +46,11 @@ class CommandListing:
 
     def to_dict(self) -> dict:
         return {
-            self.hash_id: {
-                "command": self.command,
-                "description": self.description,
-                "tags": self.tags,
-                "created": self.creation_date,
-                "last_updated": self.last_updated
-            }
+            "command": self.command,
+            "description": self.description,
+            "tags": self.tags,
+            "creation_date": self.creation_date,
+            "last_updated": self.last_updated
         }
     
     def __eq__(self, other) -> bool:
@@ -70,6 +69,9 @@ class CommandListing:
             "creation_date" in data.keys(),
             "last_updated" in data.keys()
         ]):
+            logger.error(data)
+            logger.error("keys do not match ['command', 'description', 'tags', 'creation_date', 'last_updated']")
+            logger.error(f"incorrect keys:\n{data.keys()}")
             raise ValueError("dict does not match data schema")
 
         return cls(

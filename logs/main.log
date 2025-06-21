@@ -60,3 +60,104 @@ INFO[main:create_json_file]: {
         ]
     }
 }
+INFO[main:main]: <models.CommandListing object at 0x7c0da9eeb230>
+INFO[main:main]: 1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464
+INFO[main:main]: <bound method CommandListing.to_dict of <models.CommandListing object at 0x7c0da9eeb230>>
+INFO[main:main]: 2025-06-20T21:42:58.640060
+INFO[main:create_json_file]: created new file 'test_listing_file.json.json
+INFO[main:create_json_file]: {
+    "1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464": {
+        "command": "ls -la",
+        "description": "lists all files and directories in the currentdirectory, in long format, including hidden",
+        "tags": [
+            "directory",
+            "list",
+            "bash"
+        ],
+        "created": "2025-06-20T21:42:58.640060",
+        "last_updated": "2025-06-20T21:42:58.640060"
+    }
+}
+INFO[main:main]: <models.CommandListing object at 0x7a03052fb230>
+INFO[main:main]: 1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464
+INFO[main:main]: <bound method CommandListing.to_dict of <models.CommandListing object at 0x7a03052fb230>>
+INFO[main:main]: 2025-06-20T21:48:12.128442
+INFO[main:create_json_file]: created new file 'test_listing_file.json.json
+INFO[main:create_json_file]: {
+    "1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464": {
+        "command": "ls -la",
+        "description": "lists all files and directories in the currentdirectory, in long format, including hidden",
+        "tags": [
+            "directory",
+            "list",
+            "bash"
+        ],
+        "created": "2025-06-20T21:48:12.128442",
+        "last_updated": "2025-06-20T21:48:12.128442"
+    }
+}
+INFO[main:main]: <models.CommandListing object at 0x7bdc2a71f0e0>
+INFO[main:main]: 1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464
+INFO[main:main]: <bound method CommandListing.to_dict of <models.CommandListing object at 0x7bdc2a71f0e0>>
+INFO[main:main]: 2025-06-21T01:18:25.209323
+INFO[main:create_json_file]: created new file 'test_listing_file.json.json
+INFO[main:create_json_file]: {
+    "1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464": {
+        "command": "ls -la",
+        "description": "lists all files and directories in the currentdirectory, in long format, including hidden",
+        "tags": [
+            "directory",
+            "list",
+            "bash"
+        ],
+        "created": "2025-06-21T01:18:25.209323",
+        "last_updated": "2025-06-21T01:18:25.209323"
+    }
+}
+ERROR[models:from_dict]: {'command': 'ls -la', 'description': 'lists all files and directories in the currentdirectory, in long format, including hidden', 'tags': ['directory', 'list', 'bash'], 'created': '2025-06-21T01:18:25.209323', 'last_updated': '2025-06-21T01:18:25.209323'}
+ERROR[models:from_dict]: incorrect keys:
+dict_keys(['command', 'description', 'tags', 'created', 'last_updated'])
+INFO[main:main]: <models.CommandListing object at 0x7abb4a3cb0e0>
+INFO[main:main]: 1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464
+INFO[main:main]: <bound method CommandListing.to_dict of <models.CommandListing object at 0x7abb4a3cb0e0>>
+INFO[main:main]: 2025-06-21T01:20:42.783540
+INFO[main:create_json_file]: created new file 'test_listing_file.json.json
+INFO[main:create_json_file]: {
+    "1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464": {
+        "command": "ls -la",
+        "description": "lists all files and directories in the currentdirectory, in long format, including hidden",
+        "tags": [
+            "directory",
+            "list",
+            "bash"
+        ],
+        "created": "2025-06-21T01:20:42.783540",
+        "last_updated": "2025-06-21T01:20:42.783540"
+    }
+}
+ERROR[models:from_dict]: {'command': 'ls -la', 'description': 'lists all files and directories in the currentdirectory, in long format, including hidden', 'tags': ['directory', 'list', 'bash'], 'created': '2025-06-21T01:20:42.783540', 'last_updated': '2025-06-21T01:20:42.783540'}
+ERROR[models:from_dict]: keys do not match ['command', 'description', 'tags', 'creation_date', 'last_updated']
+ERROR[models:from_dict]: incorrect keys:
+dict_keys(['command', 'description', 'tags', 'created', 'last_updated'])
+INFO[main:main]: <models.CommandListing object at 0x79c1ec2670e0>
+INFO[main:main]: 1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464
+INFO[main:main]: <bound method CommandListing.to_dict of <models.CommandListing object at 0x79c1ec2670e0>>
+INFO[main:main]: 2025-06-21T01:22:31.619285
+INFO[main:create_json_file]: created new file 'test_listing_file.json.json
+INFO[main:create_json_file]: {
+    "1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464": {
+        "command": "ls -la",
+        "description": "lists all files and directories in the currentdirectory, in long format, including hidden",
+        "tags": [
+            "directory",
+            "list",
+            "bash"
+        ],
+        "creation_date": "2025-06-21T01:22:31.619285",
+        "last_updated": "2025-06-21T01:22:31.619285"
+    }
+}
+INFO[main:main]: {'1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464': {'command': 'ls -la', 'description': 'lists all files and directories in the currentdirectory, in long format, including hidden', 'tags': ['directory', 'list', 'bash'], 'creation_date': '2025-06-21T01:22:31.619285', 'last_updated': '2025-06-21T01:22:31.619285'}}
+INFO[main:main]: 1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464
+INFO[main:main]: 1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464
+INFO[main:main]: listing hashes match: True

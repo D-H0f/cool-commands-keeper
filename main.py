@@ -66,10 +66,7 @@ def read_file(filename: str) -> dict:
         data: dict = load(f)
     return data
     
-def get_listing_by_hash(filename: str, hash_id: str) -> CommandListing:
-    with open(filename, 'r') as f:
-        data: dict = load(f)
-
+def get_listing_by_hash(data: dict, hash_id: str) -> CommandListing:
     if not hash_id in data.keys():
         raise KeyError("key not found")
     
@@ -85,7 +82,7 @@ altering the command string would just create a new listing.
 """
 def update_listing_description(filename: str, id: str, new_description: str) -> None:
     data: dict = read_file(filename)
-    listing = CommandListing.from_dict(data[id])
+    listing = get_listing_by_hash(data, id)
 
     listing.description = new_description
     listing.new_last_updated()

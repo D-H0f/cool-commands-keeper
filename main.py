@@ -70,7 +70,7 @@ def read_file(filename: str) -> dict:
         data: dict = json.load(f)
     return data
     
-def get_listing(filename: str, hash_id: str) -> CommandListing:
+def get_listing_by_hash(filename: str, hash_id: str) -> CommandListing:
     with open(filename, 'r') as f:
         data: dict = json.load(f)
 
@@ -78,13 +78,7 @@ def get_listing(filename: str, hash_id: str) -> CommandListing:
         raise KeyError("key not found")
     
     listing_data: dict = data[hash_id]
-    listing = CommandListing(
-        listing_data["command"],
-        listing_data["description"],
-        listing_data["tags"],
-        listing_data["creation_date"],
-        listing_data["last_updated"]
-    )
+    listing = CommandListing.from_dict(listing_data)
     return listing
 
 
@@ -123,7 +117,8 @@ def main() -> None:
     logger.info(test_command)
     logger.info(test_command.hash_id)
     logger.info(test_command.to_dict)
-    create_json_file("test_file", test_command)
+    logger.info(test_command.creation_date)
+    create_json_file("test_listing_file.json", test_command)
 
 
 if __name__ == "__main__":

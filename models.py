@@ -60,3 +60,22 @@ class CommandListing:
 
     def __hash__(self):
         return hash(self._command_str)
+
+    @classmethod
+    def from_dict(cls, data: dict) -> 'CommandListing':
+        if not all([
+            "command" in data.keys(),
+            "description" in data.keys(),
+            "tags" in data.keys(),
+            "creation_date" in data.keys(),
+            "last_updated" in data.keys()
+        ]):
+            raise ValueError("dict does not match data schema")
+
+        return cls(
+            data["command"],
+            data["description"],
+            data["tags"],
+            data["creation_date"],
+            data["last_updated"]
+        )

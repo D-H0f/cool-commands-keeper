@@ -45,7 +45,9 @@ def file_exists(filename: str) -> bool:
     else: return False
 
 def main() -> None:
-    pass
+    store = CommandStore("test_listing_file.json")
+    ls_listing = store.get_all_listings()
+    logger.info(ls_listing.to_dict())
 
 
 if __name__ == "__main__":

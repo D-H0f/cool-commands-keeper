@@ -95,3 +95,13 @@ class CommandStore:
         listing.new_last_updated()
         self._data[listing.hash_id] = listing
         self._save()
+
+    # DELETE
+    def delete_listing(self, hash_id: str):
+        """
+        Deletes a listing.
+        """
+        if hash_id not in self._data:
+            raise ListingNotFoundError(f"listing '{hash_id} does not exist")
+        del self._data[hash_id]
+        self._save

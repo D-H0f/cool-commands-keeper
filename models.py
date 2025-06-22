@@ -52,6 +52,15 @@ class CommandListing:
             "creation_date": self.creation_date,
             "last_updated": self.last_updated
         }
+
+    def __str__(self) -> str:
+        return f"""\
+{self.hash_id}:
+    {self.command},
+    {self.description},
+    {self.tags},
+    {self.creation_date},
+    {self.last_updated}"""
     
     def __eq__(self, other) -> bool:
         if not isinstance(other, CommandListing): return NotImplemented

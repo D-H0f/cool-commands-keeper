@@ -161,3 +161,21 @@ INFO[main:main]: {'1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9
 INFO[main:main]: 1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464
 INFO[main:main]: 1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464
 INFO[main:main]: listing hashes match: True
+INFO[main:main]: {'command': 'ls -la', 'description': '    new description to test crud functions    ', 'tags': ['directory', 'list', 'bash'], 'creation_date': '2025-06-21T01:22:31.619285', 'last_updated': '2025-06-21T02:03:57.090656'}
+INFO[main:main]: number of listings is 1
+INFO[main:main]: [<models.CommandListing object at 0x7639b9e370e0>, <models.CommandListing object at 0x7639b9d90190>]
+INFO[main:main]: {'command': 'ls -la', 'description': '    new description to test crud functions    ', 'tags': ['directory', 'list', 'bash'], 'creation_date': '2025-06-21T01:22:31.619285', 'last_updated': '2025-06-21T02:03:57.090656'}
+INFO[main:main]: number of listings is 2
+INFO[main:main]: number of listings is 2
+INFO[main:main]: 1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464:
+    ls -la,
+        new description to test crud functions    ,
+    ['directory', 'list', 'bash'],
+    2025-06-21T01:22:31.619285,
+    2025-06-21T02:03:57.090656
+bec61f0cc5aa5062a5d2ff6b8fabf8bbaf4973e379679cf1408a26d13d3ee0ca:
+    sudo apt update,
+    updates the apt repositories with super user privileges,
+    ['apt', 'repository', 'package'],
+    2025-06-22T01:40:49.029051,
+    2025-06-22T01:40:49.029051

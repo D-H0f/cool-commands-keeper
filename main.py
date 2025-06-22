@@ -1,23 +1,13 @@
 #!/home/bin/env python
 import logging, logging.config
 from pathlib import Path
-from json import dump, load
 import typer
+from json import load
 
 from models import CommandListing
 from store import CommandStore
 
 logger = logging.getLogger(__name__)
-"""
-object structure:
-{ <hash_id str> : {
-    "command": <command str>,
-    "description": <description str>,
-    "tags": [<tag str>, <tag str>],
-    "creation_date": <timestamp>,
-    "last_updated": <timestamp
-}}
-"""
 def config_logging() -> logging.Logger:
     cur_dir = Path(__file__).parent.resolve()
     logs_dir = f"{cur_dir}/logs"
@@ -32,22 +22,14 @@ def config_logging() -> logging.Logger:
     return logging.getLogger(__file__)
 
 
-def validate_file_structure(data: dict):
-    for v in iter(data.values()):
-        if not isinstance(v, dict):
-            logger.exception("invalid data schema in file")
-            raise Exception("invalid data schema in file")
-
-
-def file_exists(filename: str) -> bool:
-    if Path(f"{Path(__file__).parent.resolve()}/{filename}").exists():
-        return True
-    else: return False
 
 def main() -> None:
     store = CommandStore("test_listing_file.json")
-    ls_listing = store.get_all_listings()
-    logger.info(ls_listing.to_dict())
+    all_listings = store.get_all_listings()
+    logger.info(f"number of listings is {len(all_listings)}")
+
+    listing_string = '\n'.join(str(lst) for lst in all_listings)
+    logger.info(listing_string)
 
 
 if __name__ == "__main__":

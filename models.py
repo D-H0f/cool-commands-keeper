@@ -1,92 +1,27 @@
 import hashlib
 import datetime
 import logging
+from pydantic import BaseModel, Field, computed_field
 
 logger = logging.getLogger(__name__)
-class CommandListing:
-    def __init__(self,
-                 command: str,
-                 description: str,
-                 tags: list,
-                 creation_date: str|None = None,
-                 last_updated: str|None = None
-                 ) -> None:
+class CommandListing(BaseModel):
+    command: str = Field(min_length=1)
+    description: str = Field(min_length=1)
+    tags: list[str] = Field(default_factory=list)
+    creation_date: datetime.datetime = Field(default_factory=datetime.datetime.now)
+    last_updated: datetime.datetime = Field(default_factory=datetime.datetime.now)
 
-        if not isinstance(command, str) or not command.strip():
-            raise ValueError("Command must be non-empty string")
-        if not isinstance(description, str) or not description.strip():
-            raise ValueError("Description must be non-empty string")
-        if not isinstance(tags, list) or any(not isinstance(v, str) for v in tags):
-            raise ValueError("tags must be a list containing only str values")
 
-        self.command: str = command
-        self._command_str: str = command.strip()
-        self.description: str = description
-        self.tags: list[str] = tags
-        self.hash_id: str = self._generate_hash(self._command_str)
 
-        if creation_date is None:
-            self.creation_date = datetime.datetime.now().isoformat()
-        else:
-            self.creation_date = creation_date
-
-        if last_updated is None:
-            self.last_updated: str = self.creation_date
-        else:
-            self.last_updated: str = last_updated
-    def _generate_hash(self, text: str) -> str:
+    @computed_field
+    @property
+    def hash_id(self) -> str:
         """
         Generates a SHA256 hash from the command string with whitespace removed.
         returned as a hexadecimal string.
         """
-        return hashlib.sha256(text.encode('utf-8')).hexdigest()
+        cleaned_command = self.command.strip()
+        return hashlib.sha256(cleaned_command.encode('utf-8')).hexdigest()
 
     def new_last_updated(self) -> None:
-        self.last_updated: str = datetime.datetime.now().isoformat()
-
-    def to_dict(self) -> dict:
-        return {
-            "command": self.command,
-            "description": self.description,
-            "tags": self.tags,
-            "creation_date": self.creation_date,
-            "last_updated": self.last_updated
-        }
-
-    def __str__(self) -> str:
-        return f"""\
-{self.hash_id}:
-    {self.command},
-    {self.description},
-    {self.tags},
-    {self.creation_date},
-    {self.last_updated}"""
-    
-    def __eq__(self, other) -> bool:
-        if not isinstance(other, CommandListing): return NotImplemented
-        return self.hash_id == other.hash_id
-
-    def __hash__(self):
-        return hash(self._command_str)
-
-    @classmethod
-    def from_dict(cls, data: dict) -> 'CommandListing':
-        if not all([
-            "command" in data.keys(),
-            "description" in data.keys(),
-            "tags" in data.keys(),
-            "creation_date" in data.keys(),
-            "last_updated" in data.keys()
-        ]):
-            logger.error(data)
-            logger.error("keys do not match ['command', 'description', 'tags', 'creation_date', 'last_updated']")
-            logger.error(f"incorrect keys:\n{data.keys()}")
-            raise ValueError("dict does not match data schema")
-
-        return cls(
-            data["command"],
-            data["description"],
-            data["tags"],
-            data["creation_date"],
-            data["last_updated"]
-        )
+        self.last_updated: datetime.datetime = datetime.datetime.now()

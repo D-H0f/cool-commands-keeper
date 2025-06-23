@@ -1,28 +1,21 @@
 from json import dump, load, JSONDecodeError
 from pathlib import Path
 import logging
+from pydantic import ValidationError
 
 from models import CommandListing
 
 logger = logging.getLogger(__name__)
 
-class ListingNotFoundError(KeyError):
-    """raised when a listing with a specific id is not found in the store"""
-    pass
-
-class InvalidDataSchemaError(Exception):
-    """raised when data in a JSON file does not match the expected data schema"""
-    pass
-
 class CommandStore:
     """
-    Manages all CRUD operations for CommandListings persisted to a JSON file.
+    Manages all CRUD operations for CommandListings.
     """
     def __init__(self, filepath: str | Path):
         self.filepath = Path(filepath)
         self._data: dict = self._load()
 
-    def _load(self) -> dict:
+    def _load(self) -> dict[str, CommandListing]:
         """
         Loads listings from a JSON file into memory.
         """
@@ -33,16 +26,14 @@ class CommandStore:
             with self.filepath.open('r') as f:
                 raw_data: dict = load(f)
         except JSONDecodeError as e:
-            raise InvalidDataSchemaError(f"could not decode JSON data from {self.filepath}") from e
+            raise Exception(f"could not decode JSON data from {self.filepath}") from e
 
         listings = {}
         for hash_id, listing_data in raw_data.items():
             try:
-                listing_obj = CommandListing.from_dict(listing_data)
-                if hash_id != listing_obj.hash_id:
-                    raise ValueError("Key in dictionary does not match object's hash_id")
+                listing_obj = CommandListing.model_validate(listing_data)
                 listings[hash_id] = listing_obj
-            except (ValueError, TypeError) as e:
+            except ValidationError as e:
                 logger.warning(f"Skipping invalid record with id '{hash_id}': {e}")
                 continue
         return listings
@@ -50,9 +41,8 @@ class CommandStore:
     def _save(self) -> None:
         """
         Saves the current in-memory data back to the JSON file.
-        Overwrites entire file.
         """
-        raw_data = {hash_id: listing.to_dict() for hash_id, listing in self._data.items()}
+        raw_data = {hash_id: listing.model_dump() for hash_id, listing in self._data.items()}
         
         with self.filepath.open('w') as f:
             dump(raw_data, f, indent=4)
@@ -75,7 +65,7 @@ class CommandStore:
         Retrieves a single listing by its hash id.
         """
         if hash_id not in self._data.keys():
-            raise ListingNotFoundError(f"No listing found with ID: {hash_id}")
+            raise Exception(f"No listing found with ID: {hash_id}")
 
         return self._data[hash_id]
     
@@ -91,7 +81,7 @@ class CommandStore:
         Updates an existing command listing.
         """
         if listing.hash_id not in self._data:
-            raise ListingNotFoundError(f"listing '{listing.hash_id}' cannot be updated, does not exist.")
+            raise Exception(f"listing '{listing.hash_id}' cannot be updated, does not exist.")
         listing.new_last_updated()
         self._data[listing.hash_id] = listing
         self._save()
@@ -102,6 +92,6 @@ class CommandStore:
         Deletes a listing.
         """
         if hash_id not in self._data:
-            raise ListingNotFoundError(f"listing '{hash_id} does not exist")
+            raise Exception(f"listing '{hash_id} does not exist")
         del self._data[hash_id]
         self._save

@@ -42,7 +42,9 @@ class CommandStore:
         """
         Saves the current in-memory data back to the JSON file.
         """
-        raw_data = {hash_id: listing.model_dump() for hash_id, listing in self._data.items()}
+        raw_data = {hash_id: listing.model_dump(
+            exclude={'hash_id'}) for hash_id, listing in self._data.items()
+        }
         
         with self.filepath.open('w') as f:
             dump(raw_data, f, indent=4)

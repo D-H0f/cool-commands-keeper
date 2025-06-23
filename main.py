@@ -25,11 +25,11 @@ def config_logging() -> logging.Logger:
 
 def main() -> None:
     store = CommandStore("test_listing_file.json")
+    logger.info(store._data)
     all_listings = store.get_all_listings()
     logger.info(f"number of listings is {len(all_listings)}")
-
-    listing_string = '\n'.join(str(lst) for lst in all_listings)
-    logger.info(listing_string)
+    for listing in all_listings:
+        logger.info(f"\n{listing.model_dump_json(indent=4, exclude={'hash_id'})}")
 
 
 if __name__ == "__main__":

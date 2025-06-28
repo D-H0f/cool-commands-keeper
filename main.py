@@ -3,11 +3,14 @@ import logging, logging.config
 from pathlib import Path
 import typer
 from json import load
+from typing_extensions import Annotated
 
 from models import CommandListing
 from store import CommandStore
 
 logger = logging.getLogger(__name__)
+app = typer.Typer()
+
 def config_logging() -> logging.Logger:
     cur_dir = Path(__file__).parent.resolve()
     logs_dir = f"{cur_dir}/logs"
@@ -22,14 +25,22 @@ def config_logging() -> logging.Logger:
     return logging.getLogger(__file__)
 
 
+@app.command()
+def add(
+    filename: Annotated[str, typer.Option(prompt=True)],
+    command: Annotated[str, typer.Option(prompt=True)],
+    description: Annotated[str, typer.Option(prompt=True)],
+    tags: Annotated[str, typer.Option(prompt=True)]
+):
+    tags_form = tags.split(" ")
+    listing = CommandListing.construct(command, description, tags_form)
+    store = CommandStore(filename)
+    store.add_listing(listing)
+    logger.info(store.get_all_listings())
 
 def main() -> None:
-    store = CommandStore("test_listing_file.json")
-    logger.info(store._data)
-    all_listings = store.get_all_listings()
-    logger.info(f"number of listings is {len(all_listings)}")
-    for listing in all_listings:
-        logger.info(f"\n{listing.model_dump_json(indent=4, exclude={'hash_id'})}")
+    app()
+
 
 
 if __name__ == "__main__":

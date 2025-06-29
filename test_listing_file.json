@@ -1,24 +1,14 @@
 {
-    "1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464": {
-        "command": "ls -la",
-        "description": "    new description to test crud functions    ",
+    "c137c7b3f320f5af548b4d20e8d1880ffcbbc20a231a45af78c0c8fe6dbd80e2": {
+        "command": "ls -ls ./test",
+        "description": "this is a test",
         "tags": [
-            "directory",
-            "list",
-            "bash"
+            "tag",
+            "for",
+            "the",
+            "test"
         ],
-        "creation_date": "2025-06-21T01:22:31.619285",
-        "last_updated": "2025-06-21T02:03:57.090656"
-    },
-    "bec61f0cc5aa5062a5d2ff6b8fabf8bbaf4973e379679cf1408a26d13d3ee0ca": {
-        "command": "sudo apt update",
-        "description": "updates the apt repositories with super user privileges",
-        "tags": [
-            "apt",
-            "repository",
-            "package"
-        ],
-        "creation_date": "2025-06-22T01:40:49.029051",
-        "last_updated": "2025-06-22T01:40:49.029051"
+        "creation_date": "2025-06-29T13:22:13.802307",
+        "last_updated": "2025-06-29T13:22:13.802313"
     }
 }

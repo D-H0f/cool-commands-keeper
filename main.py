@@ -25,7 +25,7 @@ def config_logging() -> logging.Logger:
     return logging.getLogger(__file__)
 
 
-@app.command()
+@app.command(name='add')
 def add(
     filename: Annotated[str, typer.Option(prompt=True)],
     command: Annotated[str, typer.Option(prompt=True)],
@@ -33,12 +33,18 @@ def add(
     tags: Annotated[str, typer.Option(prompt=True)]
 ):
     tags_form = tags.split(" ")
-    listing = CommandListing.construct(command, description, tags_form)
+    listing = CommandListing(command=command, description=description, tags=tags_form)
     store = CommandStore(filename)
     store.add_listing(listing)
     logger.info(store.get_all_listings())
 
+@app.command(name='list')
+def list_all():
+    logger.info("'list' command was triggered, test successful")
+
+
 def main() -> None:
+    
     app()
 
 

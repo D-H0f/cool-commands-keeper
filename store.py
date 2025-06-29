@@ -13,7 +13,7 @@ class CommandStore:
     """
     def __init__(self, filepath: str | Path):
         self.filepath = Path(filepath)
-        self._data: dict = self._load()
+        self._data: dict[str, CommandListing] = self._load()
 
     def _load(self) -> dict[str, CommandListing]:
         """
@@ -42,9 +42,10 @@ class CommandStore:
         """
         Saves the current in-memory data back to the JSON file.
         """
-        raw_data = {hash_id: listing.model_dump(
-            exclude={'hash_id'}) for hash_id, listing in self._data.items()
+        raw_data = {listing.hash_id: listing.model_dump(mode='json', exclude={'hash_id'})
+            for listing in self._data.values()
         }
+        logger.info(raw_data)
         
         with self.filepath.open('w') as f:
             dump(raw_data, f, indent=4)

@@ -281,3 +281,56 @@ INFO[main:add]: [CommandListing(command='ls -ls ./test', description='this is a 
 INFO[main:list_all]: 'list' command was triggered, test successful
 INFO[store:_save]: {'c137c7b3f320f5af548b4d20e8d1880ffcbbc20a231a45af78c0c8fe6dbd80e2': {'command': 'ls -ls ./test', 'description': 'this is a test', 'tags': ['tag', 'for', 'the', 'test'], 'creation_date': '2025-06-29T13:22:13.802307', 'last_updated': '2025-06-29T13:22:13.802313'}, '75f496277439dbac55c1cd05dc3102dbd6d6c1f0355b8ddc564330db6378fbb6': {'command': 'sudo apt update && sudo apt upgrade -y', 'description': 'updates repositories and upgrades all packages that can be upgraded, with a flag to skip confirmation.', 'tags': ['repository', 'packages', 'software', 'administration'], 'creation_date': '2025-06-29T14:33:13.414794', 'last_updated': '2025-06-29T14:33:13.414805'}}
 INFO[main:add]: [CommandListing(command='ls -ls ./test', description='this is a test', tags=['tag', 'for', 'the', 'test'], creation_date=datetime.datetime(2025, 6, 29, 13, 22, 13, 802307), last_updated=datetime.datetime(2025, 6, 29, 13, 22, 13, 802313), hash_id='c137c7b3f320f5af548b4d20e8d1880ffcbbc20a231a45af78c0c8fe6dbd80e2'), CommandListing(command='sudo apt update && sudo apt upgrade -y', description='updates repositories and upgrades all packages that can be upgraded, with a flag to skip confirmation.', tags=['repository', 'packages', 'software', 'administration'], creation_date=datetime.datetime(2025, 6, 29, 14, 33, 13, 414794), last_updated=datetime.datetime(2025, 6, 29, 14, 33, 13, 414805), hash_id='75f496277439dbac55c1cd05dc3102dbd6d6c1f0355b8ddc564330db6378fbb6')]
+INFO[store:_load]: {'command': 'sleep 3600 && killall -s SIGTERM spotify', 'description': 'tells the bash shell to do nothing for 60 minutes, then to request the process labeled spotify to gracefully shut down.'}
+INFO[store:_load]: {
+    "command": "sleep 3600 && killall -s SIGTERM spotify",
+    "description": "tells the bash shell to do nothing for 60 minutes, then to request the process labeled spotify to gracefully shut down.",
+    "tags": [],
+    "creation_date": "2025-06-29T14:46:04.512070",
+    "last_updated": "2025-06-29T14:46:04.512074",
+    "hash_id": "8571fc1fa0ed37543ab349075d4626a951e9269c625999b32bb29c270306e619"
+}
+INFO[store:_load]: {'command': 'adb shell svc usb setFunctions none', 'description': 'tells a phone to disable usb tethering using ADB'}
+INFO[store:_load]: {
+    "command": "adb shell svc usb setFunctions none",
+    "description": "tells a phone to disable usb tethering using ADB",
+    "tags": [],
+    "creation_date": "2025-06-29T14:46:04.512314",
+    "last_updated": "2025-06-29T14:46:04.512317",
+    "hash_id": "1f3feab205fea7ee2c7f2ff1e0d197ee706e4cabaea3968c66caebd67708f024"
+}
+INFO[store:_load]: {'command': 'sleep 3600 && killall -s SIGTERM spotify', 'description': 'tells the bash shell to do nothing for 60 minutes, then to request the process labeled spotify to gracefully shut down.'}
+INFO[store:_load]: {
+    "command": "sleep 3600 && killall -s SIGTERM spotify",
+    "description": "tells the bash shell to do nothing for 60 minutes, then to request the process labeled spotify to gracefully shut down.",
+    "tags": [],
+    "creation_date": "2025-06-29T14:47:08.653194",
+    "last_updated": "2025-06-29T14:47:08.653200",
+    "hash_id": "8571fc1fa0ed37543ab349075d4626a951e9269c625999b32bb29c270306e619"
+}
+INFO[store:_load]: {'command': 'adb shell svc usb setFunctions none', 'description': 'tells a phone to disable usb tethering using ADB'}
+INFO[store:_load]: {
+    "command": "adb shell svc usb setFunctions none",
+    "description": "tells a phone to disable usb tethering using ADB",
+    "tags": [],
+    "creation_date": "2025-06-29T14:47:08.653424",
+    "last_updated": "2025-06-29T14:47:08.653427",
+    "hash_id": "1f3feab205fea7ee2c7f2ff1e0d197ee706e4cabaea3968c66caebd67708f024"
+}
+INFO[store:_save]: {'8571fc1fa0ed37543ab349075d4626a951e9269c625999b32bb29c270306e619': {'command': 'sleep 3600 && killall -s SIGTERM spotify', 'description': 'tells the bash shell to do nothing for 60 minutes, then to request the process labeled spotify to gracefully shut down.', 'tags': ['music', 'spotify', 'automation', 'process', 'media'], 'creation_date': '2025-06-29T14:49:22.101314', 'last_updated': '2025-06-29T14:49:22.101321'}}
+INFO[main:add]: [CommandListing(command='sleep 3600 && killall -s SIGTERM spotify', description='tells the bash shell to do nothing for 60 minutes, then to request the process labeled spotify to gracefully shut down.', tags=['music', 'spotify', 'automation', 'process', 'media'], creation_date=datetime.datetime(2025, 6, 29, 14, 49, 22, 101314), last_updated=datetime.datetime(2025, 6, 29, 14, 49, 22, 101321), hash_id='8571fc1fa0ed37543ab349075d4626a951e9269c625999b32bb29c270306e619')]
+INFO[store:_load]: {'command': 'sleep 3600 && killall -s SIGTERM spotify', 'description': 'tells the bash shell to do nothing for 60 minutes, then to request the process labeled spotify to gracefully shut down.', 'tags': ['music', 'spotify', 'automation', 'process', 'media'], 'creation_date': '2025-06-29T14:49:22.101314', 'last_updated': '2025-06-29T14:49:22.101321'}
+INFO[store:_load]: {
+    "command": "sleep 3600 && killall -s SIGTERM spotify",
+    "description": "tells the bash shell to do nothing for 60 minutes, then to request the process labeled spotify to gracefully shut down.",
+    "tags": [
+        "music",
+        "spotify",
+        "automation",
+        "process",
+        "media"
+    ],
+    "creation_date": "2025-06-29T14:49:22.101314",
+    "last_updated": "2025-06-29T14:49:22.101321",
+    "hash_id": "8571fc1fa0ed37543ab349075d4626a951e9269c625999b32bb29c270306e619"
+}

@@ -31,6 +31,7 @@ class CommandStore:
         listings = {}
         for hash_id, listing_data in raw_data.items():
             try:
+                #TODO add more robust validation
                 listing_obj = CommandListing.model_validate(listing_data)
                 listings[hash_id] = listing_obj
             except ValidationError as e:

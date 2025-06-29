@@ -1,0 +1,15 @@
+{
+    "8571fc1fa0ed37543ab349075d4626a951e9269c625999b32bb29c270306e619": {
+        "command": "sleep 3600 && killall -s SIGTERM spotify",
+        "description": "tells the bash shell to do nothing for 60 minutes, then to request the process labeled spotify to gracefully shut down.",
+        "tags": [
+            "music",
+            "spotify",
+            "automation",
+            "process",
+            "media"
+        ],
+        "creation_date": "2025-06-29T14:49:22.101314",
+        "last_updated": "2025-06-29T14:49:22.101321"
+    }
+}

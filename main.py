@@ -3,7 +3,7 @@ import logging, logging.config
 from pathlib import Path
 import rich
 import typer
-from json import load
+from json import load, dumps
 from typing_extensions import Annotated
 
 from models import CommandListing
@@ -48,6 +48,14 @@ def list_all(
     for listing in listings:
         rich.print(f"Listing ID is {listing.hash_id}")
         rich.print(listing.model_dump_json(indent=4, exclude={'hash_id'}))
+
+@app.command(name='get')
+def get_listing(
+    filename: Annotated[str, typer.Option(prompt=True)],
+    id: Annotated[str, typer.Option(prompt=True)]    
+):
+    listing = CommandStore(filename).get_listing(id)
+    rich.print(dumps(listing.model_dump(mode='json'), indent=4))
     
 
 

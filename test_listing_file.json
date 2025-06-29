@@ -10,5 +10,17 @@
         ],
         "creation_date": "2025-06-29T13:22:13.802307",
         "last_updated": "2025-06-29T13:22:13.802313"
+    },
+    "75f496277439dbac55c1cd05dc3102dbd6d6c1f0355b8ddc564330db6378fbb6": {
+        "command": "sudo apt update && sudo apt upgrade -y",
+        "description": "updates repositories and upgrades all packages that can be upgraded, with a flag to skip confirmation.",
+        "tags": [
+            "repository",
+            "packages",
+            "software",
+            "administration"
+        ],
+        "creation_date": "2025-06-29T14:33:13.414794",
+        "last_updated": "2025-06-29T14:33:13.414805"
     }
 }

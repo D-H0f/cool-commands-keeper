@@ -1,6 +1,7 @@
 #!/home/bin/env python
 import logging, logging.config
 from pathlib import Path
+import rich
 import typer
 from json import load
 from typing_extensions import Annotated
@@ -39,8 +40,15 @@ def add(
     logger.info(store.get_all_listings())
 
 @app.command(name='list')
-def list_all():
-    logger.info("'list' command was triggered, test successful")
+def list_all(
+    filename: Annotated[str, typer.Option(prompt=True)]
+):
+    store = CommandStore(filename)
+    listings: list[CommandListing] = store.get_all_listings()
+    for listing in listings:
+        rich.print(f"Listing ID is {listing.hash_id}")
+        rich.print(listing.model_dump_json(indent=4, exclude={'hash_id'}))
+    
 
 
 def main() -> None:

@@ -95,7 +95,7 @@ class CommandStore:
         """
         Deletes a listing.
         """
-        if hash_id not in self._data:
-            raise Exception(f"listing '{hash_id} does not exist")
+        if hash_id not in self._data.keys():
+            raise Exception(f"listing '{hash_id}' does not exist")
         del self._data[hash_id]
-        self._save
+        self._save()

@@ -75,6 +75,25 @@ def update_listing(
     
     store.update_listing(listing)
 
+@app.command(name='delete')
+def delete_listing(
+    filename: Annotated[str, typer.Option("--filename", prompt=True)],
+    id: Annotated[str, typer.Option("--id", prompt=True)],
+    noconfirm: Annotated[bool, typer.Option("--noconfirm", "-n")] = False
+):
+    store = CommandStore(filename)
+    if not noconfirm:
+        rich.print(f"listing to be deleted:\n{store.get_listing(id).model_dump_json(indent=4)}")
+        choice = typer.confirm("delete listing?")
+        if choice:
+            store.delete_listing(id)
+            logger.info(f"listing '{id}' deleted")
+        else:logger.info("operation aborted")
+    else:
+        store.delete_listing(id)
+        logger.info(f"listing '{id}' deleted")
+
+
 
 def main() -> None:
     

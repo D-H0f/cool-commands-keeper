@@ -1,4 +1,4 @@
-#!/home/bin/env python
+#!./venv/bin/python
 import logging, logging.config
 from pathlib import Path
 import rich
@@ -56,7 +56,24 @@ def get_listing(
 ):
     listing = CommandStore(filename).get_listing(id)
     rich.print(dumps(listing.model_dump(mode='json'), indent=4))
+
+@app.command(name='update')    
+def update_listing(
+    filename: Annotated[str, typer.Option("--filename", "-f", prompt=True)],
+    id: Annotated[str, typer.Option("--id", "-i", prompt=True)],
+    description: Annotated[str|None, typer.Option("--desc", "-d")] = None,
+    tags: Annotated[str|None, typer.Option("--tags", "-t")] = None
+):
+    if description is None and tags is None:quit()
+    store = CommandStore(filename)
+    listing = store.get_listing(id)
+
+    if not description is None:
+        listing.description = description
+    if not tags is None:
+        listing.tags = tags.split(" ")
     
+    store.update_listing(listing)
 
 
 def main() -> None:

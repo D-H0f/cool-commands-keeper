@@ -11,5 +11,28 @@
         ],
         "creation_date": "2025-06-29T14:49:22.101314",
         "last_updated": "2025-06-29T14:49:22.101321"
+    },
+    "1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464": {
+        "command": "ls -la",
+        "description": "new description",
+        "tags": [
+            "new",
+            "tags",
+            "now"
+        ],
+        "creation_date": "2025-06-29T20:55:00.455610",
+        "last_updated": "2025-06-29T21:03:24.215346"
+    },
+    "1c73882808ce25b1333bf0f4b34ba5f94179a7f55b20137dbf8986bda19fc78c": {
+        "command": "ping 8.8.8.8 -c 4",
+        "description": "sends ping packets to google's IP address 4 times",
+        "tags": [
+            "network",
+            "networking",
+            "debugging",
+            "troubleshooting"
+        ],
+        "creation_date": "2025-06-29T20:59:41.141838",
+        "last_updated": "2025-06-29T20:59:41.141845"
     }
 }

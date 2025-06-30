@@ -34,5 +34,36 @@
         ],
         "creation_date": "2025-06-29T20:59:41.141838",
         "last_updated": "2025-06-29T20:59:41.141845"
+    },
+    "ade8891466c48206771f3cb0dfc42306b257e1e28b684141f4beb824832922f5": {
+        "command": "lsblk",
+        "description": "lists all mounted filesystems, useful for when you are directly writing to a filesystem or flashing an external drive.",
+        "tags": [
+            "filesystem",
+            "file",
+            "mount",
+            "flashing",
+            "writing",
+            "copy",
+            "list"
+        ],
+        "creation_date": "2025-06-30T12:24:51.531285",
+        "last_updated": "2025-06-30T12:24:51.531295"
+    },
+    "a5980b8b865e192469635c5665c90746cb9b01b6ef99a2653acde49af15cb667": {
+        "command": "sudo dd if=<file to be flashed> of=<storage to flash to, ex: /dev/sda> bs=1M status=progress",
+        "description": "writes a file, usually an OS image, directly to a storage medium. very dangerous, can soft brick your PC.",
+        "tags": [
+            "copy",
+            "file",
+            "filesystem",
+            "storage",
+            "dd",
+            "sudo",
+            "danger",
+            "flashing"
+        ],
+        "creation_date": "2025-06-30T12:29:53.019466",
+        "last_updated": "2025-06-30T12:29:53.019478"
     }
 }

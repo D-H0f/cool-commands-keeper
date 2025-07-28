@@ -37,32 +37,37 @@ def add(
     listing = CommandListing(command=command, description=description, tags=tags_form)
     store = CommandStore(filename)
     store.add_listing(listing)
-    logger.info(store.get_all_listings())
 
-@app.command(name='list')
+@app.command(name='ls')
 def list_all(
-    filename: Annotated[str, typer.Option(prompt=True)]
+    filename: str = "commands.json",
+    long: Annotated[bool, typer.Option("--long", "-l")] = False
 ):
     store = CommandStore(filename)
     listings: list[CommandListing] = store.get_all_listings()
-    for listing in listings:
-        rich.print(f"Listing ID is {listing.hash_id}")
-        rich.print(listing.model_dump_json(indent=4, exclude={'hash_id'}))
+    if long:
+        for listing in listings:
+            rich.print(f"ID: '{listing.hash_id}'")
+            typer.echo(listing.model_dump_json(indent=4, exclude={'hash_id'}), color=True)
+            typer.echo("")
+    else:
+        for listing in listings:
+            typer.echo(f"ID: '{listing.hash_id}'\nCommand: '{listing.command}'\n", color=True)
 
 @app.command(name='get')
 def get_listing(
-    filename: Annotated[str, typer.Option(prompt=True)],
-    id: Annotated[str, typer.Option(prompt=True)]    
+    id: Annotated[str, typer.Option('--id', prompt=True)],    
+    filename: str = 'commands.json'
 ):
     listing = CommandStore(filename).get_listing(id)
-    rich.print(dumps(listing.model_dump(mode='json'), indent=4))
+    typer.echo(dumps(listing.model_dump(mode='json'), indent=4), color=True)
 
 @app.command(name='update')    
 def update_listing(
-    filename: Annotated[str, typer.Option("--filename", "-f", prompt=True)],
     id: Annotated[str, typer.Option("--id", "-i", prompt=True)],
     description: Annotated[str|None, typer.Option("--desc", "-d")] = None,
-    tags: Annotated[str|None, typer.Option("--tags", "-t")] = None
+    tags: Annotated[str|None, typer.Option("--tags", "-t")] = None,
+    filename: Annotated[str, typer.Option("--filename", "-f")] = 'commands.json'
 ):
     if description is None and tags is None:quit()
     store = CommandStore(filename)
